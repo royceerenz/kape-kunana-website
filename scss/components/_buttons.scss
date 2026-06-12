@@ -1,0 +1,43 @@
+@use '../abstracts/variables' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.95rem 1.55rem;
+  border-radius: 999px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: center;
+  transition: transform $transition, background $transition, color $transition;
+}
+
+.btn-primary {
+  background: $cream;
+  color: $dark-text;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+}
+
+.btn-secondary {
+  color: $white;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(245, 230, 211, 0.75);
+  outline-offset: 4px;
+}
+
+@media (max-width: 760px) {
+  .btn {
+    min-height: 3.35rem;
+    padding: 1rem 1.25rem;
+  }
+}
