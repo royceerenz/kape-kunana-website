@@ -40,45 +40,171 @@
 
                     <p>Visit our warm garage-style cafe, or bring the Kape Kunana coffee experience to weddings, birthdays, corporate gatherings, and community celebrations.</p>
 
-                    <div class="hero-actions">
-                        <a href="#booking" class="btn btn-primary">Book Your Event</a>
-                        <a href="#coffee-events" class="btn btn-secondary">Explore the Cafe</a>
-                    </div>
-
-                    <div class="hero-highlights" aria-label="Kape Kunana highlights">
-                        <span>Specialty-style drinks</span>
-                        <span>On-site event setup</span>
-                        <span>Cozy cafe experience</span>
-                    </div>
-
-                    <p class="hero-scroll-cue">Scroll to explore the cafe</p>
+                    <a class="hero-scroll-cue" href="#coffee-events" aria-label="Explore Kape Kunana coffee and events">
+                        <span>Explore coffee and events</span>
+                        <span class="hero-scroll-icon" aria-hidden="true"></span>
+                    </a>
                 </div>
             </div>
         </div>
 
+        <section class="benefit-strip" aria-labelledby="benefits-title">
+            <h2 class="sr-only" id="benefits-title">Why people stay longer at Kape Kunana</h2>
+
+            <div class="container">
+                <ul class="benefit-list" aria-label="Kape Kunana benefits">
+                    <li>
+                        <span class="benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false">
+                                <path d="M5 8h12v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"></path>
+                                <path d="M17 10h1a3 3 0 0 1 0 6h-1"></path>
+                                <path d="M8 3v2"></path>
+                                <path d="M12 3v2"></path>
+                                <path d="M16 3v2"></path>
+                            </svg>
+                        </span>
+                        <span>Crafted Coffee</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false">
+                                <path d="M4 13h16"></path>
+                                <path d="M6 13V9a6 6 0 0 1 12 0v4"></path>
+                                <path d="M7 13l-1 6"></path>
+                                <path d="M17 13l1 6"></path>
+                                <path d="M9 19h6"></path>
+                            </svg>
+                        </span>
+                        <span>Chill Garage Vibes</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false">
+                                <path d="M7 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                                <path d="M17 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                                <path d="M3 22v-2a4 4 0 0 1 4-4h2"></path>
+                                <path d="M21 22v-2a4 4 0 0 0-4-4h-2"></path>
+                                <path d="M9 14h6"></path>
+                            </svg>
+                        </span>
+                        <span>Perfect for Tambayan</span>
+                    </li>
+                    <li>
+                        <span class="benefit-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false">
+                                <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+                                <path d="M12 7v5l3 2"></path>
+                                <path d="M4.9 4.9 3 3"></path>
+                                <path d="M19.1 4.9 21 3"></path>
+                            </svg>
+                        </span>
+                        <span>Open Until Midnight</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
     </section>
 
     <main>
-        <section class="section coffee-events" id="coffee-events" aria-labelledby="coffee-events-title">
-            <div class="container split-section">
-                <div class="section-copy">
-                    <span class="section-kicker">Coffee & Events</span>
-                    <h2 id="coffee-events-title">One coffee brand, two ways to experience it.</h2>
-                    <p>Kape Kunana started with the feeling of a welcoming neighborhood cafe: quality drinks, good conversations, and space to slow down. Our event coffee bar brings that same warmth to the moments people gather for.</p>
+        <section class="coffee-events scroll-slides" id="coffee-events" aria-labelledby="coffee-events-title" data-scroll-slides>
+            <div class="scroll-slides-stage">
+                <div class="container scroll-slides-grid">
+                    <div class="scroll-slides-copy">
+                        <span class="section-kicker">Coffee & Events</span>
+                        <p class="slide-count" aria-live="polite"><span data-slide-current>01</span> / 04</p>
+
+                        <div class="slide-copy is-active" data-slide-copy="0">
+                            <p class="slide-eyebrow">Coffee Shop</p>
+                            <h2 id="coffee-events-title">Stay for coffee.</h2>
+                            <p>A cozy garage-style spot for slow mornings, work sessions, tambayan, and late-night cups.</p>
+                            <a class="slide-link" href="#booking">Visit the cafe</a>
+                        </div>
+
+                        <div class="slide-copy" data-slide-copy="1">
+                            <p class="slide-eyebrow">Best Sellers</p>
+                            <h2>Comfort in a cup.</h2>
+                            <p>KK Signature, Seasalt Latte, Spanish Latte, Biscoff Latte, and Nutella Latte.</p>
+                            <a class="slide-link" href="#booking">View menu</a>
+                        </div>
+
+                        <div class="slide-copy" data-slide-copy="2">
+                            <p class="slide-eyebrow">Coffee Bar</p>
+                            <h2>Bring us to events.</h2>
+                            <p>A clean barista setup for pop-ups, schools, companies, and private gatherings.</p>
+                            <a class="slide-link" href="#booking">Book the bar</a>
+                        </div>
+
+                        <div class="slide-copy" data-slide-copy="3">
+                            <p class="slide-eyebrow">Event Experience</p>
+                            <h2>Easy for hosts.</h2>
+                            <p>Fresh drinks, friendly baristas, smooth setup, and a coffee moment guests remember.</p>
+                            <a class="slide-link" href="#booking">Inquire now</a>
+                        </div>
+
+                        <div class="slide-nav" aria-label="Coffee and events slide navigation">
+                            <button class="is-active" type="button" data-slide-nav="0" aria-label="Show Coffee Shop slide"></button>
+                            <button type="button" data-slide-nav="1" aria-label="Show Best Seller Drinks slide"></button>
+                            <button type="button" data-slide-nav="2" aria-label="Show Events Coffee Bar slide"></button>
+                            <button type="button" data-slide-nav="3" aria-label="Show Event Experience slide"></button>
+                        </div>
+                    </div>
+
+                    <div class="scroll-slides-media" aria-hidden="true">
+                        <article class="slide-media is-active" data-slide-media="0">
+                            <img class="slide-media-main" src="assets/images/hero.jpg" alt="">
+                            <img class="slide-media-float" src="assets/IMG_3830.JPG" alt="">
+                        </article>
+
+                        <article class="slide-media" data-slide-media="1">
+                            <img class="slide-media-main" src="assets/IMG_3830.JPG" alt="">
+                            <img class="slide-media-float" src="assets/images/hero.jpg" alt="">
+                        </article>
+
+                        <article class="slide-media" data-slide-media="2">
+                            <img class="slide-media-main" src="assets/images/hero.jpg" alt="">
+                            <img class="slide-media-float" src="assets/IMG_3830.JPG" alt="">
+                        </article>
+
+                        <article class="slide-media" data-slide-media="3">
+                            <img class="slide-media-main" src="assets/IMG_3830.JPG" alt="">
+                            <img class="slide-media-float" src="assets/images/hero.jpg" alt="">
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-slide-steps" aria-hidden="true">
+                <div data-slide-step="0"></div>
+                <div data-slide-step="1"></div>
+                <div data-slide-step="2"></div>
+                <div data-slide-step="3"></div>
+            </div>
+        </section>
+
+        <section class="our-story" id="our-story" aria-labelledby="our-story-title">
+            <div class="container story-editorial">
+                <div class="story-image-band story-image-band-left" aria-hidden="true" data-story-image>
+                    <img src="assets/images/hero.jpg" alt="">
                 </div>
 
-                <div class="experience-grid" aria-label="Kape Kunana experiences">
-                    <article class="experience-card cafe-card">
-                        <span>Cafe</span>
-                        <h3>Drop by for coffee and kwentuhan.</h3>
-                        <p>A cozy garage-style spot for espresso drinks, iced favorites, non-coffee blends, and easy tambay moments.</p>
-                    </article>
+                <div class="story-image-band story-image-band-right" aria-hidden="true" data-story-image>
+                    <img src="assets/IMG_3830.JPG" alt="">
+                </div>
 
-                    <article class="experience-card event-card">
-                        <span>Events</span>
-                        <h3>Bring the bar to your celebration.</h3>
-                        <p>A premium coffee setup for weddings, birthdays, launches, meetings, and private gatherings.</p>
-                    </article>
+                <span class="story-kicker" data-story-reveal>Sabi nila, kape tayo</span>
+
+                <h2 id="our-story-title" class="story-title" data-story-reveal>
+                    <span>Where kwento</span>
+                    <em>meets coffee.</em>
+                </h2>
+
+                <p class="story-lead" data-story-reveal>In Ilocano, "Kunana" means "Sabi Nila." Kape Kunana was built for quick catch-ups, quiet work, late-night kwentuhan, and good coffee that makes people stay.</p>
+
+                <a class="story-cta" href="#booking" data-story-reveal>Visit the cafe</a>
+
+                <div class="story-bottom-image" aria-hidden="true" data-story-image>
+                    <img src="assets/IMG_3830.JPG" alt="">
                 </div>
             </div>
         </section>
@@ -147,5 +273,8 @@
             </div>
         </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
