@@ -16,7 +16,6 @@
 
             <ul class="nav-links" aria-label="Main menu">
                 <li><a href="#coffee-events">Coffee & Events</a></li>
-                <li><a href="#event-services">Services</a></li>
                 <li><a href="#booking">Book</a></li>
             </ul>
 
@@ -184,12 +183,24 @@
 
         <section class="our-story" id="our-story" aria-labelledby="our-story-title">
             <div class="container story-editorial">
-                <div class="story-image-band story-image-band-left" aria-hidden="true" data-story-image>
+                <div class="story-image-card story-image-card--1" aria-hidden="true" data-story-image>
                     <img src="assets/images/hero.jpg" alt="">
                 </div>
 
-                <div class="story-image-band story-image-band-right" aria-hidden="true" data-story-image>
+                <div class="story-image-card story-image-card--2" aria-hidden="true" data-story-image>
                     <img src="assets/IMG_3830.JPG" alt="">
+                </div>
+
+                <div class="story-image-card story-image-card--3" aria-hidden="true" data-story-image>
+                    <img src="assets/images/hero.jpg" alt="">
+                </div>
+
+                <div class="story-image-card story-image-card--4" aria-hidden="true" data-story-image>
+                    <img src="assets/IMG_3830.JPG" alt="">
+                </div>
+
+                <div class="story-image-card story-image-card--5" aria-hidden="true" data-story-image>
+                    <img src="assets/images/hero.jpg" alt="">
                 </div>
 
                 <span class="story-kicker" data-story-reveal>Sabi nila, kape tayo</span>
@@ -201,39 +212,175 @@
 
                 <p class="story-lead" data-story-reveal>In Ilocano, "Kunana" means "Sabi Nila." Kape Kunana was built for quick catch-ups, quiet work, late-night kwentuhan, and good coffee that makes people stay.</p>
 
-                <a class="story-cta" href="#booking" data-story-reveal>Visit the cafe</a>
+                <a class="btn btn-primary story-cta" href="#booking" data-story-reveal>Visit the cafe</a>
 
-                <div class="story-bottom-image" aria-hidden="true" data-story-image>
-                    <img src="assets/IMG_3830.JPG" alt="">
-                </div>
             </div>
         </section>
 
-        <section class="section event-services" id="event-services" aria-labelledby="event-services-title">
-            <div class="container">
-                <div class="section-heading">
-                    <span class="section-kicker">Event Services</span>
-                    <h2 id="event-services-title">A coffee bar that feels thoughtful, warm, and guest-ready.</h2>
-                    <p>We help hosts add a memorable coffee experience to their event, from drinks and service flow to a setup that looks good in the room.</p>
+        <section class="menu-preview" id="menu" aria-labelledby="menu-preview-title">
+            <div class="container menu-preview-inner">
+                <div class="menu-preview-heading">
+                    <span class="section-kicker">Menu Preview</span>
+                    <h2 id="menu-preview-title">A glimpse of what we serve.</h2>
                 </div>
 
-                <div class="service-grid">
-                    <article class="service-item">
-                        <span>01</span>
-                        <h3>Mobile Coffee Bar</h3>
-                        <p>On-site coffee service with a clean, premium setup for intimate gatherings and bigger celebrations.</p>
+                <div class="menu-carousel" data-menu-carousel tabindex="0">
+                    <button class="menu-carousel-btn menu-carousel-btn-prev" type="button" data-menu-prev aria-label="Previous menu category"></button>
+
+                    <div class="menu-carousel-stage" aria-live="polite">
+                        <article class="menu-card is-active" data-menu-card>
+                            <img src="assets/images/hero.jpg" alt="">
+                            <div class="menu-card-copy">
+                                <h3>Signature Lattes</h3>
+                            </div>
+                        </article>
+
+                        <article class="menu-card" data-menu-card>
+                            <img src="assets/IMG_3830.JPG" alt="">
+                            <div class="menu-card-copy">
+                                <h3>Non-Coffee Drinks</h3>
+                            </div>
+                        </article>
+
+                        <article class="menu-card" data-menu-card>
+                            <img src="assets/images/hero.jpg" alt="">
+                            <div class="menu-card-copy">
+                                <h3>Frappes</h3>
+                            </div>
+                        </article>
+
+                        <article class="menu-card" data-menu-card>
+                            <img src="assets/IMG_3830.JPG" alt="">
+                            <div class="menu-card-copy">
+                                <h3>Matcha Series</h3>
+                            </div>
+                        </article>
+
+                        <article class="menu-card" data-menu-card>
+                            <img src="assets/images/hero.jpg" alt="">
+                            <div class="menu-card-copy">
+                                <h3>Pasta & Snacks</h3>
+                            </div>
+                        </article>
+
+                        <article class="menu-card" data-menu-card>
+                            <img src="assets/IMG_3830.JPG" alt="">
+                            <div class="menu-card-copy">
+                                <h3>Pastries & Dessert</h3>
+                            </div>
+                        </article>
+
+                        <article class="menu-card" data-menu-card>
+                            <img src="assets/images/hero.jpg" alt="">
+                            <div class="menu-card-copy">
+                                <h3>Meals</h3>
+                            </div>
+                        </article>
+                    </div>
+
+                    <button class="menu-carousel-btn menu-carousel-btn-next" type="button" data-menu-next aria-label="Next menu category"></button>
+
+                    <div class="menu-carousel-dots" aria-label="Menu category navigation">
+                        <button class="is-active" type="button" data-menu-dot="0" aria-label="Show Signature Lattes"></button>
+                        <button type="button" data-menu-dot="1" aria-label="Show Non-Coffee Drinks"></button>
+                        <button type="button" data-menu-dot="2" aria-label="Show Frappes"></button>
+                        <button type="button" data-menu-dot="3" aria-label="Show Matcha Series"></button>
+                        <button type="button" data-menu-dot="4" aria-label="Show Pasta and Snacks"></button>
+                        <button type="button" data-menu-dot="5" aria-label="Show Pastries and Dessert"></button>
+                        <button type="button" data-menu-dot="6" aria-label="Show Meals"></button>
+                    </div>
+                </div>
+
+                <a class="btn btn-primary menu-preview-cta" href="#booking">Order Now</a>
+            </div>
+        </section>
+
+        <section class="testimonials" id="testimonials" aria-labelledby="testimonials-title">
+            <div class="container testimonials-inner">
+                <div class="testimonials-heading" data-testimonial-reveal>
+                    <div>
+                        <span class="section-kicker">Customer Love</span>
+                        <h2 id="testimonials-title">Loved by the people who stay for one more cup.</h2>
+                    </div>
+                    <div class="testimonials-note">
+                        <p>From late-night tambay to event coffee bars, Kape Kunana is built around real moments, real conversations, and coffee worth coming back for.</p>
+                        <div class="testimonial-proof" aria-label="Customer trust highlights">
+                            <span><strong>4.9</strong> guest rating</span>
+                            <span><strong>Local</strong> coffee spot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-grid" aria-label="Customer testimonials">
+                    <article class="testimonial-card testimonial-card-featured" data-testimonial-card>
+                        <span class="testimonial-quote-mark" aria-hidden="true">“</span>
+                        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p>“The place feels warm and easy. We came for coffee, stayed for kwento, and ended up making it our usual spot.”</p>
+                        <div class="testimonial-person">
+                            <span>MA</span>
+                            <div>
+                                <strong>Mika A.</strong>
+                                <small>Regular Customer</small>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="service-item">
-                        <span>02</span>
-                        <h3>Curated Drink Menu</h3>
-                        <p>Espresso-based drinks, iced favorites, and non-coffee options matched to your guests and event style.</p>
+                    <article class="testimonial-card" data-testimonial-card>
+                        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p>“Their coffee bar made our event feel more personal. Smooth setup, friendly baristas, and guests kept coming back.”</p>
+                        <div class="testimonial-person">
+                            <span>JR</span>
+                            <div>
+                                <strong>Janel R.</strong>
+                                <small>Event Client</small>
+                            </div>
+                        </div>
                     </article>
 
-                    <article class="service-item">
-                        <span>03</span>
-                        <h3>Guest Experience</h3>
-                        <p>Friendly service that makes coffee feel like part of the celebration, not just another station.</p>
+                    <article class="testimonial-card" data-testimonial-card>
+                        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p>“Perfect place to study at night. Cozy, calm, and the Spanish Latte is always worth the visit.”</p>
+                        <div class="testimonial-person">
+                            <span>CL</span>
+                            <div>
+                                <strong>Carl L.</strong>
+                                <small>Student</small>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" data-testimonial-card>
+                        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p>“Garage vibes, good drinks, and people who remember your order. It feels local in the best way.”</p>
+                        <div class="testimonial-person">
+                            <span>TN</span>
+                            <div>
+                                <strong>Tina N.</strong>
+                                <small>Coffee Lover</small>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" data-testimonial-card>
+                        <div class="testimonial-rating" aria-label="5 out of 5 stars">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p>“A small coffee shop with a big heart. The kind of place you recommend without thinking twice.”</p>
+                        <div class="testimonial-person">
+                            <span>DV</span>
+                            <div>
+                                <strong>Drei V.</strong>
+                                <small>Regular Customer</small>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </div>
