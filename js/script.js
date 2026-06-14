@@ -103,24 +103,22 @@ if (menuCarousel) {
 
   const renderMenuCarousel = () => {
     const isMobile = window.matchMedia("(max-width: 760px)").matches;
-    const spacing = isMobile ? 50 : 43;
+    const spacing = isMobile ? 88 : 116;
 
     cards.forEach((card, index) => {
       const offset = getLoopOffset(index);
       const absOffset = Math.abs(offset);
       const x = offset * spacing;
-      const y = absOffset * (isMobile ? 3 : 6);
-      const z = -absOffset * (isMobile ? 110 : 155);
-      const rotateY = offset * (isMobile ? -8 : -10);
-      const rotateZ = offset * -1.2;
-      const scale = Math.max(0.76, 1 - absOffset * 0.085);
-      const opacity = absOffset > 3 ? 0 : Math.max(0.34, 1 - absOffset * 0.18);
+      const y = absOffset * (isMobile ? 2 : 4);
+      const rotateZ = offset * (isMobile ? -1.8 : -1.25);
+      const scale = Math.max(isMobile ? 0.78 : 0.84, 1 - absOffset * (isMobile ? 0.08 : 0.035));
+      const opacity = absOffset > (isMobile ? 2 : 3) ? 0 : Math.max(0.58, 1 - absOffset * 0.08);
 
       card.classList.toggle("is-active", offset === 0);
       card.style.zIndex = String(20 - absOffset);
       card.style.opacity = opacity;
-      card.style.filter = absOffset === 0 ? "none" : "saturate(0.82) contrast(0.92)";
-      card.style.transform = `translate3d(calc(-50% + ${x}%), calc(-50% + ${y}px), ${z}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
+      card.style.filter = absOffset === 0 ? "none" : "saturate(0.9) contrast(0.96)";
+      card.style.transform = `translate3d(calc(-50% + ${x}%), calc(-50% + ${y}px), 0) rotateZ(${rotateZ}deg) scale(${scale})`;
     });
 
     dots.forEach((dot, index) => {
@@ -238,6 +236,11 @@ const initStoryAnimations = () => {
   }
 
   const getDistance = (multiplier) => Math.round(window.innerWidth * multiplier);
+  const getStoryTransitionOverlap = () => {
+    const overlapRatio = window.matchMedia("(max-width: 760px)").matches ? 0.28 : 0.42;
+
+    return Math.round(window.innerHeight * overlapRatio);
+  };
 
   const fromStates = [
     () => ({ x: getDistance(0.58), y: -18, z: -120, rotationY: -22, rotationZ: 5, scale: 0.88, opacity: 0.48 }),
@@ -267,7 +270,7 @@ const initStoryAnimations = () => {
     scrollTrigger: {
       trigger: storySection,
       start: "top top",
-      end: "bottom bottom",
+      end: () => `bottom-=${getStoryTransitionOverlap()} bottom`,
       scrub: 0.8,
       invalidateOnRefresh: true,
     },
@@ -320,12 +323,85 @@ const initTestimonialAnimations = () => {
   });
 };
 
+const initLocationAnimations = () => {
+  const locationSection = document.querySelector(".location-hours");
+  const canAnimateLocation = locationSection && window.gsap && window.ScrollTrigger && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!canAnimateLocation) {
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from("[data-location-reveal]", {
+    y: 34,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    stagger: 0.08,
+    scrollTrigger: {
+      trigger: locationSection,
+      start: "top 72%",
+    },
+  });
+
+  gsap.from("[data-location-map]", {
+    y: 48,
+    opacity: 0,
+    scale: 0.96,
+    duration: 0.9,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: locationSection,
+      start: "top 68%",
+    },
+  });
+
+  gsap.to("[data-location-map]", {
+    yPercent: -3,
+    ease: "none",
+    scrollTrigger: {
+      trigger: locationSection,
+      start: "top bottom",
+      end: "bottom top",
+      scrub: 0.8,
+    },
+  });
+};
+
+const initFooterAnimations = () => {
+  const footer = document.querySelector(".site-footer");
+  const canAnimateFooter = footer && window.gsap && window.ScrollTrigger && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!canAnimateFooter) {
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from("[data-footer-reveal]", {
+    y: 24,
+    opacity: 0,
+    duration: 0.75,
+    ease: "power3.out",
+    stagger: 0.08,
+    scrollTrigger: {
+      trigger: footer,
+      start: "top 78%",
+    },
+  });
+};
+
 if (document.readyState === "complete") {
   requestAnimationFrame(initStoryAnimations);
   requestAnimationFrame(initTestimonialAnimations);
+  requestAnimationFrame(initLocationAnimations);
+  requestAnimationFrame(initFooterAnimations);
 } else {
   window.addEventListener("load", () => {
     requestAnimationFrame(initStoryAnimations);
     requestAnimationFrame(initTestimonialAnimations);
+    requestAnimationFrame(initLocationAnimations);
+    requestAnimationFrame(initFooterAnimations);
   }, { once: true });
 }
