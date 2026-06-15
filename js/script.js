@@ -1,12 +1,270 @@
+const compactScreen = window.matchMedia("(max-width: 760px)");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const initMobileReveals = () => {
+  if (!compactScreen.matches || reduceMotion.matches || !("IntersectionObserver" in window)) {
+    return;
+  }
+
+  const revealItems = [
+    ".benefit-list li",
+    ".menu-preview-heading",
+    "[data-menu-carousel]",
+    ".menu-preview-cta",
+    "[data-testimonial-reveal]",
+    "[data-location-reveal]",
+    "[data-location-map]",
+    ".booking-inner > *",
+    "[data-footer-reveal]",
+  ];
+
+  const targets = [...document.querySelectorAll(revealItems.join(","))]
+    .filter((item, index, items) => items.indexOf(item) === index);
+
+  targets.forEach((item, index) => {
+    item.classList.add("mobile-reveal");
+    item.style.setProperty("--mobile-reveal-delay", `${Math.min(index % 6, 5) * 55}ms`);
+  });
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      rootMargin: "0px 0px -12% 0px",
+      threshold: 0.18,
+    }
+  );
+
+  targets.forEach((item) => revealObserver.observe(item));
+};
+
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+const navbar = document.querySelector(".navbar");
+
+if (navToggle && navLinks) {
+  const setMenuOpen = (isOpen) => {
+    navToggle.classList.toggle("is-open", isOpen);
+    navLinks.classList.toggle("is-open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+  };
+
+  navToggle.addEventListener("click", () => {
+    setMenuOpen(!navLinks.classList.contains("is-open"));
+  });
+
+  navLinks.addEventListener("click", (event) => {
+    if (event.target.closest("a")) {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setMenuOpen(false);
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!navbar?.contains(event.target)) {
+      setMenuOpen(false);
+    }
+  });
+
+  compactScreen.addEventListener("change", (event) => {
+    if (!event.matches) {
+      setMenuOpen(false);
+    }
+  });
+}
+
+const initEventInquiryModal = () => {
+  const modal = document.querySelector("[data-event-modal]");
+  const form = document.querySelector("[data-event-form]");
+  const triggers = [...document.querySelectorAll("[data-event-inquiry-trigger]")];
+
+  if (!modal || !form || !triggers.length) {
+    return;
+  }
+
+  const closeControls = [...modal.querySelectorAll("[data-event-modal-close]")];
+  const firstInput = form.querySelector("input, textarea, button");
+  const requiredFields = [
+    "fullName",
+    "contactNumber",
+    "eventDate",
+    "eventLocation",
+    "eventType",
+    "estimatedGuests",
+  ];
+  const fieldLabels = {
+    fullName: "Full Name",
+    contactNumber: "Contact Number",
+    eventDate: "Event Date",
+    eventLocation: "Event Location",
+    eventType: "Event Type",
+    estimatedGuests: "Estimated Number of Guests",
+  };
+  const messengerBaseUrl = "https://m.me/KapeKunana";
+  let previousFocus = null;
+
+  const clearErrors = () => {
+    form.querySelectorAll(".event-field.is-invalid").forEach((field) => {
+      field.classList.remove("is-invalid");
+    });
+
+    form.querySelectorAll("[data-error-for]").forEach((error) => {
+      error.textContent = "";
+    });
+  };
+
+  const setModalOpen = (isOpen) => {
+    modal.classList.toggle("is-open", isOpen);
+    modal.setAttribute("aria-hidden", String(!isOpen));
+    document.body.classList.toggle("event-modal-open", isOpen);
+
+    if (isOpen) {
+      previousFocus = document.activeElement;
+      clearErrors();
+      window.setTimeout(() => firstInput?.focus(), 120);
+      return;
+    }
+
+    previousFocus?.focus?.();
+  };
+
+  const getField = (name) => form.elements[name];
+
+  const validateForm = () => {
+    clearErrors();
+
+    const invalidFields = requiredFields.filter((name) => {
+      const field = getField(name);
+      const value = field?.value?.trim() || "";
+
+      if (!value) {
+        return true;
+      }
+
+      if (name === "estimatedGuests" && Number(value) < 1) {
+        return true;
+      }
+
+      return false;
+    });
+
+    invalidFields.forEach((name) => {
+      const field = getField(name);
+      const wrapper = field?.closest(".event-field");
+      const error = form.querySelector(`[data-error-for="${name}"]`);
+
+      wrapper?.classList.add("is-invalid");
+
+      if (error) {
+        error.textContent = `${fieldLabels[name]} is required.`;
+      }
+    });
+
+    if (invalidFields.length) {
+      getField(invalidFields[0])?.focus();
+    }
+
+    return invalidFields.length === 0;
+  };
+
+  const buildMessengerMessage = () => {
+    const values = {
+      fullName: getField("fullName").value.trim(),
+      contactNumber: getField("contactNumber").value.trim(),
+      eventDate: getField("eventDate").value.trim(),
+      eventLocation: getField("eventLocation").value.trim(),
+      eventType: getField("eventType").value.trim(),
+      estimatedGuests: getField("estimatedGuests").value.trim(),
+      additionalNotes: getField("additionalNotes").value.trim() || "None",
+    };
+
+    return [
+      "Hello Kape Kunana!",
+      "",
+      "I\u2019d like to inquire about your coffee bar service.",
+      "",
+      `Name: ${values.fullName}`,
+      `Contact Number: ${values.contactNumber}`,
+      `Event Date: ${values.eventDate}`,
+      `Event Location: ${values.eventLocation}`,
+      `Event Type: ${values.eventType}`,
+      `Estimated Guests: ${values.estimatedGuests}`,
+      `Additional Notes: ${values.additionalNotes}`,
+    ].join("\n");
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      setModalOpen(true);
+    });
+  });
+
+  closeControls.forEach((control) => {
+    control.addEventListener("click", () => {
+      setModalOpen(false);
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("is-open")) {
+      setModalOpen(false);
+    }
+  });
+
+  form.addEventListener("input", (event) => {
+    const field = event.target.closest("input, textarea");
+
+    if (!field) {
+      return;
+    }
+
+    field.closest(".event-field")?.classList.remove("is-invalid");
+
+    const error = form.querySelector(`[data-error-for="${field.name}"]`);
+
+    if (error) {
+      error.textContent = "";
+    }
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    const encodedMessage = encodeURIComponent(buildMessengerMessage());
+    const messengerUrl = `${messengerBaseUrl}?text=${encodedMessage}`;
+
+    window.open(messengerUrl, "_blank", "noopener,noreferrer");
+  });
+};
+
+initEventInquiryModal();
+
 const slideRoot = document.querySelector("[data-scroll-slides]");
 
 if (slideRoot) {
   const slideCopies = [...slideRoot.querySelectorAll("[data-slide-copy]")];
   const slideMedia = [...slideRoot.querySelectorAll("[data-slide-media]")];
-  const slideSteps = [...slideRoot.querySelectorAll("[data-slide-step]")];
   const slideNav = [...slideRoot.querySelectorAll("[data-slide-nav]")];
   const slideCurrent = slideRoot.querySelector("[data-slide-current]");
   let activeIndex = 0;
+  let slideTrigger = null;
 
   const setActiveSlide = (index) => {
     if (index === activeIndex && slideCopies[index]?.classList.contains("is-active")) {
@@ -32,46 +290,64 @@ if (slideRoot) {
     }
   };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const activeEntry = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+  const getScrollDistance = () => {
+    const slideCount = Math.max(1, slideCopies.length - 1);
+    const viewport = window.innerHeight || document.documentElement.clientHeight || 720;
 
-      if (activeEntry) {
-        setActiveSlide(Number(activeEntry.target.dataset.slideStep));
-      }
-    },
-    {
-      rootMargin: "-42% 0px -42% 0px",
-      threshold: [0, 0.2, 0.5, 0.8, 1],
-    }
-  );
+    return Math.round(viewport * slideCount);
+  };
 
-  slideSteps.forEach((step) => observer.observe(step));
+  const setSlideFromProgress = (progress) => {
+    const lastIndex = Math.max(0, slideCopies.length - 1);
+    const index = Math.min(lastIndex, Math.max(0, Math.round(progress * lastIndex)));
+
+    setActiveSlide(index);
+  };
+
+  if (window.gsap && window.ScrollTrigger && !reduceMotion.matches) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    slideTrigger = ScrollTrigger.create({
+      trigger: slideRoot,
+      start: "top top",
+      end: () => `+=${getScrollDistance()}`,
+      pin: true,
+      pinSpacing: true,
+      scrub: 0.45,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        setSlideFromProgress(self.progress);
+        slideRoot.style.setProperty("--slide-parallax", `${(self.progress - 0.5) * 34}px`);
+      },
+      onRefresh: (self) => {
+        setSlideFromProgress(self.progress);
+      },
+    });
+  }
 
   slideNav.forEach((button) => {
     button.addEventListener("click", () => {
       const index = Number(button.dataset.slideNav);
-      slideSteps[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
-      setActiveSlide(index);
+
+      if (slideTrigger) {
+        const lastIndex = Math.max(1, slideCopies.length - 1);
+        const progress = index / lastIndex;
+        const scrollTarget = slideTrigger.start + (slideTrigger.end - slideTrigger.start) * progress;
+
+        window.scrollTo({
+          top: scrollTarget,
+          behavior: reduceMotion.matches ? "auto" : "smooth",
+        });
+      }
+
+      if (!slideTrigger) {
+        setActiveSlide(index);
+      }
     });
   });
 
-  const updateParallax = () => {
-    const rect = slideRoot.getBoundingClientRect();
-    const progress = Math.min(1, Math.max(0, -rect.top / Math.max(1, rect.height - window.innerHeight)));
-    const offset = (progress - 0.5) * 42;
-
-    slideRoot.style.setProperty("--slide-parallax", `${offset}px`);
-    requestAnimationFrame(updateParallax);
-  };
-
   setActiveSlide(0);
-
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    requestAnimationFrame(updateParallax);
-  }
 }
 
 const menuCarousel = document.querySelector("[data-menu-carousel]");
@@ -102,8 +378,8 @@ if (menuCarousel) {
   };
 
   const renderMenuCarousel = () => {
-    const isMobile = window.matchMedia("(max-width: 760px)").matches;
-    const spacing = isMobile ? 88 : 116;
+    const isMobile = compactScreen.matches;
+    const spacing = isMobile ? 74 : 116;
 
     cards.forEach((card, index) => {
       const offset = getLoopOffset(index);
@@ -139,7 +415,7 @@ if (menuCarousel) {
   };
 
   const startAutoplay = () => {
-    if (autoplayTimer || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (autoplayTimer || reduceMotion.matches) {
       return;
     }
 
@@ -190,6 +466,11 @@ if (menuCarousel) {
     startAutoplay();
   });
 
+  menuCarousel.addEventListener("pointercancel", () => {
+    dragStartX = null;
+    startAutoplay();
+  });
+
   menuCarousel.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {
       setMenuIndex(activeMenuIndex - 1);
@@ -214,6 +495,12 @@ if (menuCarousel) {
     }
   });
 
+  compactScreen.addEventListener("change", () => {
+    stopAutoplay();
+    renderMenuCarousel();
+    startAutoplay();
+  });
+
   window.addEventListener("resize", renderMenuCarousel);
   renderMenuCarousel();
   startAutoplay();
@@ -221,7 +508,8 @@ if (menuCarousel) {
 
 const initStoryAnimations = () => {
   const storySection = document.querySelector(".our-story");
-  const canAnimateStory = storySection && window.gsap && window.ScrollTrigger && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const menuPreview = document.querySelector(".menu-preview");
+  const canAnimateStory = storySection && window.gsap && window.ScrollTrigger && !reduceMotion.matches;
 
   if (!canAnimateStory) {
     return;
@@ -284,13 +572,31 @@ const initStoryAnimations = () => {
     }, 0);
   });
 
+  if (compactScreen.matches && menuPreview) {
+    gsap.set(menuPreview, {
+      "--menu-overlap-y": "18svh",
+    });
+
+    gsap.to(menuPreview, {
+      "--menu-overlap-y": "0svh",
+      ease: "none",
+      scrollTrigger: {
+        trigger: storySection,
+        start: "bottom bottom+=45%",
+        end: "bottom bottom",
+        scrub: 0.65,
+        invalidateOnRefresh: true,
+      },
+    });
+  }
+
   ScrollTrigger.refresh();
   window.setTimeout(() => ScrollTrigger.refresh(), 250);
 };
 
 const initTestimonialAnimations = () => {
   const testimonialSection = document.querySelector(".testimonials");
-  const canAnimateTestimonials = testimonialSection && window.gsap && window.ScrollTrigger && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canAnimateTestimonials = testimonialSection && window.gsap && window.ScrollTrigger && !reduceMotion.matches && !compactScreen.matches;
 
   if (!canAnimateTestimonials) {
     return;
@@ -323,9 +629,92 @@ const initTestimonialAnimations = () => {
   });
 };
 
+const initTestimonialCarousel = () => {
+  const testimonialGrid = document.querySelector(".testimonial-grid");
+
+  if (!testimonialGrid) {
+    return;
+  }
+
+  const cards = [...testimonialGrid.querySelectorAll("[data-testimonial-card]")];
+  const dots = [...document.querySelectorAll("[data-testimonial-dot]")];
+  const prevButton = document.querySelector("[data-testimonial-prev]");
+  const nextButton = document.querySelector("[data-testimonial-next]");
+  let activeIndex = 0;
+  let dragStartX = null;
+
+  if (!cards.length) {
+    return;
+  }
+
+  const renderCarousel = () => {
+    const isMobile = compactScreen.matches;
+
+    cards.forEach((card, index) => {
+      const isActive = index === activeIndex;
+
+      card.classList.toggle("is-active", !isMobile || isActive);
+      card.classList.toggle("is-before", isMobile && index < activeIndex);
+      card.setAttribute("aria-hidden", String(isMobile && !isActive));
+    });
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("is-active", index === activeIndex);
+    });
+  };
+
+  const setTestimonialIndex = (index) => {
+    activeIndex = (index + cards.length) % cards.length;
+    renderCarousel();
+  };
+
+  prevButton?.addEventListener("click", () => {
+    setTestimonialIndex(activeIndex - 1);
+  });
+
+  nextButton?.addEventListener("click", () => {
+    setTestimonialIndex(activeIndex + 1);
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      setTestimonialIndex(Number(dot.dataset.testimonialDot));
+    });
+  });
+
+  testimonialGrid.addEventListener("pointerdown", (event) => {
+    if (!compactScreen.matches) {
+      return;
+    }
+
+    dragStartX = event.clientX;
+  });
+
+  testimonialGrid.addEventListener("pointerup", (event) => {
+    if (dragStartX === null || !compactScreen.matches) {
+      dragStartX = null;
+      return;
+    }
+
+    const delta = event.clientX - dragStartX;
+    dragStartX = null;
+
+    if (Math.abs(delta) > 42) {
+      setTestimonialIndex(activeIndex + (delta < 0 ? 1 : -1));
+    }
+  });
+
+  testimonialGrid.addEventListener("pointercancel", () => {
+    dragStartX = null;
+  });
+
+  compactScreen.addEventListener("change", renderCarousel);
+  renderCarousel();
+};
+
 const initLocationAnimations = () => {
   const locationSection = document.querySelector(".location-hours");
-  const canAnimateLocation = locationSection && window.gsap && window.ScrollTrigger && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canAnimateLocation = locationSection && window.gsap && window.ScrollTrigger && !reduceMotion.matches && !compactScreen.matches;
 
   if (!canAnimateLocation) {
     return;
@@ -371,7 +760,7 @@ const initLocationAnimations = () => {
 
 const initFooterAnimations = () => {
   const footer = document.querySelector(".site-footer");
-  const canAnimateFooter = footer && window.gsap && window.ScrollTrigger && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canAnimateFooter = footer && window.gsap && window.ScrollTrigger && !reduceMotion.matches && !compactScreen.matches;
 
   if (!canAnimateFooter) {
     return;
@@ -393,14 +782,18 @@ const initFooterAnimations = () => {
 };
 
 if (document.readyState === "complete") {
+  requestAnimationFrame(initMobileReveals);
   requestAnimationFrame(initStoryAnimations);
   requestAnimationFrame(initTestimonialAnimations);
+  requestAnimationFrame(initTestimonialCarousel);
   requestAnimationFrame(initLocationAnimations);
   requestAnimationFrame(initFooterAnimations);
 } else {
   window.addEventListener("load", () => {
+    requestAnimationFrame(initMobileReveals);
     requestAnimationFrame(initStoryAnimations);
     requestAnimationFrame(initTestimonialAnimations);
+    requestAnimationFrame(initTestimonialCarousel);
     requestAnimationFrame(initLocationAnimations);
     requestAnimationFrame(initFooterAnimations);
   }, { once: true });

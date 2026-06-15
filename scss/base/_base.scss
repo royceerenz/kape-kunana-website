@@ -30,8 +30,15 @@ a {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 ul {
   list-style: none;
+}
+
+@media (max-width: 760px) {
+  .container {
+    width: min(calc(100% - 2rem), 1200px);
+  }
 }

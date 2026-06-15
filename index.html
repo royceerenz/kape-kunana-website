@@ -14,14 +14,20 @@
                 <span>Kape Kunana</span>
             </a>
 
-            <ul class="nav-links" aria-label="Main menu">
+            <ul class="nav-links" id="primary-menu" aria-label="Main menu">
                 <li><a href="#">HOME</a></li>
                 <li><a href="#our-story">ABOUT US</a></li>
                 <li><a href="#menu">MENU</a></li>
                 <li><a href="#location">CONTACT</a></li>
             </ul>
 
-            <a class="nav-cta" href="#booking">Book Event Bar</a>
+            <a class="nav-cta" href="#event-inquiry-modal" data-event-inquiry-trigger>Book the Bar</a>
+
+            <button class="nav-toggle" type="button" aria-label="Open menu" aria-controls="primary-menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
     </header>
 
@@ -41,6 +47,8 @@
 
                     <p>Kape Kunana is a garage-style coffee shop in Taguig serving handcrafted coffee, signature lattes, matcha, frappes, meals, pastries, and coffee bar catering for events.</p>
 
+                    <a class="hero-event-cta btn btn-primary" href="#event-inquiry-modal" data-event-inquiry-trigger>Book Kape Kunana for Your Event</a>
+
                     <a class="hero-scroll-cue" href="#coffee-events" aria-label="Explore Kape Kunana coffee and events">
                         <span>Explore coffee and events</span>
                         <span class="hero-scroll-icon" aria-hidden="true"></span>
@@ -49,62 +57,62 @@
             </div>
         </div>
 
-        <section class="benefit-strip" aria-labelledby="benefits-title">
-            <h2 class="sr-only" id="benefits-title">Why people stay longer at Kape Kunana</h2>
+    </section>
 
-            <div class="container">
-                <ul class="benefit-list" aria-label="Kape Kunana benefits">
-                    <li>
-                        <span class="benefit-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false">
-                                <path d="M5 8h12v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"></path>
-                                <path d="M17 10h1a3 3 0 0 1 0 6h-1"></path>
-                                <path d="M8 3v2"></path>
-                                <path d="M12 3v2"></path>
-                                <path d="M16 3v2"></path>
-                            </svg>
-                        </span>
-                        <span>Crafted Coffee</span>
-                    </li>
-                    <li>
-                        <span class="benefit-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false">
-                                <path d="M4 13h16"></path>
-                                <path d="M6 13V9a6 6 0 0 1 12 0v4"></path>
-                                <path d="M7 13l-1 6"></path>
-                                <path d="M17 13l1 6"></path>
-                                <path d="M9 19h6"></path>
-                            </svg>
-                        </span>
-                        <span>Chill Garage Vibes</span>
-                    </li>
-                    <li>
-                        <span class="benefit-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false">
-                                <path d="M7 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                                <path d="M17 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-                                <path d="M3 22v-2a4 4 0 0 1 4-4h2"></path>
-                                <path d="M21 22v-2a4 4 0 0 0-4-4h-2"></path>
-                                <path d="M9 14h6"></path>
-                            </svg>
-                        </span>
-                        <span>Perfect for Tambayan</span>
-                    </li>
-                    <li>
-                        <span class="benefit-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" focusable="false">
-                                <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
-                                <path d="M12 7v5l3 2"></path>
-                                <path d="M4.9 4.9 3 3"></path>
-                                <path d="M19.1 4.9 21 3"></path>
-                            </svg>
-                        </span>
-                        <span>Open Until Midnight</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
+    <section class="benefit-strip" aria-labelledby="benefits-title">
+        <h2 class="sr-only" id="benefits-title">Why people stay longer at Kape Kunana</h2>
 
+        <div class="container">
+            <ul class="benefit-list" aria-label="Kape Kunana benefits">
+                <li>
+                    <span class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M5 8h12v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"></path>
+                            <path d="M17 10h1a3 3 0 0 1 0 6h-1"></path>
+                            <path d="M8 3v2"></path>
+                            <path d="M12 3v2"></path>
+                            <path d="M16 3v2"></path>
+                        </svg>
+                    </span>
+                    <span>Crafted Coffee</span>
+                </li>
+                <li>
+                    <span class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M4 13h16"></path>
+                            <path d="M6 13V9a6 6 0 0 1 12 0v4"></path>
+                            <path d="M7 13l-1 6"></path>
+                            <path d="M17 13l1 6"></path>
+                            <path d="M9 19h6"></path>
+                        </svg>
+                    </span>
+                    <span>Chill Garage Vibes</span>
+                </li>
+                <li>
+                    <span class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M7 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                            <path d="M17 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+                            <path d="M3 22v-2a4 4 0 0 1 4-4h2"></path>
+                            <path d="M21 22v-2a4 4 0 0 0-4-4h-2"></path>
+                            <path d="M9 14h6"></path>
+                        </svg>
+                    </span>
+                    <span>Perfect for Tambayan</span>
+                </li>
+                <li>
+                    <span class="benefit-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+                            <path d="M12 7v5l3 2"></path>
+                            <path d="M4.9 4.9 3 3"></path>
+                            <path d="M19.1 4.9 21 3"></path>
+                        </svg>
+                    </span>
+                    <span>Open Until Midnight</span>
+                </li>
+            </ul>
+        </div>
     </section>
 
     <main>
@@ -133,14 +141,14 @@
                             <p class="slide-eyebrow">Coffee Bar</p>
                             <h2><span>Bring us</span><span>to events.</span></h2>
                             <p>A clean barista setup for pop-ups, schools, companies, and private gatherings.</p>
-                            <a class="slide-link" href="#booking">Book the bar</a>
+                            <a class="slide-link" href="#event-inquiry-modal" data-event-inquiry-trigger>Book the Bar</a>
                         </div>
 
                         <div class="slide-copy" data-slide-copy="3">
                             <p class="slide-eyebrow">Event Experience</p>
                             <h2><span>Easy for</span><span>hosts.</span></h2>
                             <p>Fresh drinks, friendly baristas, smooth setup, and a coffee moment guests remember.</p>
-                            <a class="slide-link" href="#booking">Inquire now</a>
+                            <a class="slide-link" href="#event-inquiry-modal" data-event-inquiry-trigger>Inquire for Events</a>
                         </div>
 
                         <div class="slide-nav" aria-label="Coffee and events slide navigation">
@@ -405,6 +413,19 @@
                         </div>
                     </article>
                 </div>
+
+                <div class="testimonial-carousel-controls" aria-label="Customer testimonial navigation">
+                    <button class="testimonial-carousel-btn testimonial-carousel-btn-prev" type="button" data-testimonial-prev aria-label="Previous testimonial"></button>
+                    <div class="testimonial-carousel-dots" aria-label="Choose testimonial">
+                        <button class="is-active" type="button" data-testimonial-dot="0" aria-label="Show testimonial 1"></button>
+                        <button type="button" data-testimonial-dot="1" aria-label="Show testimonial 2"></button>
+                        <button type="button" data-testimonial-dot="2" aria-label="Show testimonial 3"></button>
+                        <button type="button" data-testimonial-dot="3" aria-label="Show testimonial 4"></button>
+                        <button type="button" data-testimonial-dot="4" aria-label="Show testimonial 5"></button>
+                        <button type="button" data-testimonial-dot="5" aria-label="Show testimonial 6"></button>
+                    </div>
+                    <button class="testimonial-carousel-btn testimonial-carousel-btn-next" type="button" data-testimonial-next aria-label="Next testimonial"></button>
+                </div>
             </div>
         </section>
 
@@ -483,7 +504,7 @@
                 <p>Tell us your date, guest count, venue, and preferred drink style. We will help shape a coffee bar experience that feels right for your celebration.</p>
 
                 <div class="booking-actions">
-                    <a href="#" class="btn btn-primary">Book Event Coffee Bar</a>
+                    <a href="#event-inquiry-modal" class="btn btn-primary" data-event-inquiry-trigger>Get a Quote</a>
                     <a href="#" class="btn btn-secondary">Visit the Cafe First</a>
                 </div>
             </div>
@@ -548,6 +569,69 @@
             </div>
         </div>
     </footer>
+
+    <div class="event-modal" id="event-inquiry-modal" aria-hidden="true" data-event-modal>
+        <div class="event-modal-backdrop" data-event-modal-close></div>
+
+        <section class="event-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="event-modal-title" aria-describedby="event-modal-intro">
+            <button class="event-modal-close" type="button" aria-label="Close event inquiry form" data-event-modal-close></button>
+
+            <div class="event-modal-heading">
+                <span class="section-kicker">Event Inquiry</span>
+                <h2 id="event-modal-title">Bring Kape Kunana to your event.</h2>
+                <p id="event-modal-intro">Share a few event details and we will prepare your coffee bar inquiry for Messenger.</p>
+            </div>
+
+            <form class="event-form" novalidate data-event-form>
+                <div class="event-form-grid">
+                    <label class="event-field">
+                        <span>Full Name</span>
+                        <input type="text" name="fullName" autocomplete="name" required>
+                        <small data-error-for="fullName"></small>
+                    </label>
+
+                    <label class="event-field">
+                        <span>Contact Number</span>
+                        <input type="tel" name="contactNumber" autocomplete="tel" inputmode="tel" required>
+                        <small data-error-for="contactNumber"></small>
+                    </label>
+
+                    <label class="event-field">
+                        <span>Event Date</span>
+                        <input type="date" name="eventDate" required>
+                        <small data-error-for="eventDate"></small>
+                    </label>
+
+                    <label class="event-field">
+                        <span>Event Location</span>
+                        <input type="text" name="eventLocation" autocomplete="street-address" required>
+                        <small data-error-for="eventLocation"></small>
+                    </label>
+
+                    <label class="event-field">
+                        <span>Event Type</span>
+                        <input type="text" name="eventType" placeholder="Birthday, wedding, company event..." required>
+                        <small data-error-for="eventType"></small>
+                    </label>
+
+                    <label class="event-field">
+                        <span>Estimated Number of Guests</span>
+                        <input type="number" name="estimatedGuests" inputmode="numeric" min="1" required>
+                        <small data-error-for="estimatedGuests"></small>
+                    </label>
+                </div>
+
+                <label class="event-field event-field-full">
+                    <span>Additional Notes</span>
+                    <textarea name="additionalNotes" rows="4" placeholder="Preferred drinks, setup time, venue notes, or anything we should know."></textarea>
+                </label>
+
+                <p class="event-form-helper">You will be redirected to Messenger to review and send the inquiry.</p>
+
+                <button class="btn btn-primary event-submit" type="submit">Send Event Inquiry</button>
+            </form>
+        </section>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
